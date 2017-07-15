@@ -21,6 +21,11 @@ public class CircularProj {
 	public int Cycle;
 	public Button DesignButton;
 	
+	public int BeginTime = 0;
+	public int EndTime = 999999;
+	public float Velocity = 3f;
+	public float RotateSpeed = 0f;
+	
 	public static void Create(Vector2 position, float beginDir, float endDir, int count, int cycle, final String name)
 	{
 		CircularProj n = new CircularProj();
@@ -61,6 +66,15 @@ public class CircularProj {
 		n.EndDir = endDir;
 		n.CountProjs = count;
 		n.Cycle = cycle;
+	}
+	
+	public static void ModifyMore(String name, int begin, int end, float veloc, float rotate)
+	{
+		CircularProj n = Items.get(name);
+		n.BeginTime = begin;
+		n.EndTime = end;
+		n.Velocity = veloc;
+		n.RotateSpeed = rotate;
 	}
 	
 	public static void Remove(String name)

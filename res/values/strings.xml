@@ -9,5 +9,19 @@
 	<string name="dlg_ncp_dir">发射角度范围:</string>
 	<string name="dlg_ncp_count">单批发射子弹数:</string>
 	<string name="dlg_ncp_cycle">发射间隔:</string>
+	
+	<string name="dig_cpm_route_self">发射器路径:</string>
+	<string name="dlg_cpm_route">子弹路径:</string>
+	<string name="dlg_cpm_veloc">子弹速度:</string>
+	<string name="dlg_cpm_veloc_self">发射器速度:</string>
+	<string name="dlg_cpm_veloc_unit">(90/秒)</string>
+	<string name="dlg_cpm_time_begin">开始时间(tick):</string>
+	<string name="dlg_cpm_time_end">结束时间(tick):</string>
+	<string name="dlg_cpm_rotate">发射器旋转:(度每秒)</string>
+	
+	<string-array name="spin_route">
+		<item>曲线</item>
+		<item>直线</item>
+	</string-array>
 
 </resources>

@@ -92,7 +92,20 @@ public class DialogCircularProj {
 		builder.setNegativeButton(isnew ? "Cancel" : "More...", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				
+				if (!isnew)
+				{
+					CircularProj.Modify(
+							new Vector2(
+									Float.parseFloat(posxI.getText().toString()),
+									Float.parseFloat(posyI.getText().toString())),
+							Float.parseFloat(beginDirI.getText().toString()),
+							Float.parseFloat(endDirI.getText().toString()),
+							Integer.parseInt(countI.getText().toString()),
+							Integer.parseInt(cycleI.getText().toString()),
+							nameI.getText().toString()
+					);
+					DialogCircularMore.Show(name);
+				}
 			}
 		});
 		if (!isnew)
