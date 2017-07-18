@@ -15,8 +15,8 @@ public class CircularProj {
 	public String Name;
 	public Vector2 Position;
 	public Vector2 AbsPos;
-	public float BeginDir;
-	public float EndDir;
+	public float MidDir;
+	public float DirRange;
 	public int CountProjs;
 	public int Cycle;
 	public Button DesignButton;
@@ -26,12 +26,12 @@ public class CircularProj {
 	public float Velocity = 3f;
 	public float RotateSpeed = 0f;
 	
-	public static void Create(Vector2 position, float beginDir, float endDir, int count, int cycle, final String name)
+	public static void Create(Vector2 position, float midDir, float rangeDir, int count, int cycle, final String name)
 	{
 		CircularProj n = new CircularProj();
 		n.Position = position;
-		n.BeginDir = beginDir;
-		n.EndDir = endDir;
+		n.MidDir = midDir;
+		n.DirRange = rangeDir;
 		n.CountProjs = count;
 		n.Name = name;
 		n.Cycle = cycle;
@@ -56,14 +56,14 @@ public class CircularProj {
 		Items.put(name, n);
 	}
 	
-	public static void Modify(Vector2 position, float beginDir, float endDir, int count, int cycle, String name)
+	public static void Modify(Vector2 position, float midDir, float rangeDir, int count, int cycle, String name)
 	{
 		CircularProj n = Items.get(name);
 		n.Position = position;
 		n.AbsPos.set(position).add(0, DesignScreen.UIStage.getHeight() - 675);
 		n.DesignButton.setBounds(n.AbsPos.x - 32, n.AbsPos.y - 32, 64, 64);
-		n.BeginDir = beginDir;
-		n.EndDir = endDir;
+		n.MidDir = midDir;
+		n.DirRange = rangeDir;
 		n.CountProjs = count;
 		n.Cycle = cycle;
 	}
@@ -83,5 +83,21 @@ public class CircularProj {
 		n.DesignButton.remove();
 		n = null;
 		Items.remove(name);
+	}
+	@Override
+	public CircularProj clone() {
+		CircularProj n = new CircularProj();
+		n.AbsPos = this.AbsPos.cpy();
+		n.BeginTime = this.BeginTime;
+		n.CountProjs = this.CountProjs;
+		n.Cycle = this.Cycle;
+		n.DirRange = this.DirRange;
+		n.EndTime = this.EndTime;
+		n.MidDir = this.MidDir;
+		n.Name = this.Name;
+		n.Position = this.Position.cpy();
+		n.RotateSpeed = this.RotateSpeed;
+		n.Velocity = this.Velocity;
+		return n;
 	}
 }

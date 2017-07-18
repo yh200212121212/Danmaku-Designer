@@ -78,27 +78,27 @@
 			android:layout_gravity="center_vertical"/>
 
 		<EditText
-		    android:id="@+id/dlgncpinputbegindir"
+		    android:id="@+id/dlgncpinputmiddir"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1.0"
 		    android:ems="10"
-		    android:inputType="numberDecimal|numberSigned" />
+		    android:inputType="text" />
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:text="~"
+			android:text="±"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:layout_width="wrap_content"
 			android:layout_gravity="center_vertical"/>
 
 		<EditText
-		    android:id="@+id/dlgncpinputenddir"
+		    android:id="@+id/dlgncpinputdirrange"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1.0"
 		    android:ems="10"
-		    android:inputType="numberDecimal|numberSigned" />
+		    android:inputType="text" />
 
 	</LinearLayout>
 

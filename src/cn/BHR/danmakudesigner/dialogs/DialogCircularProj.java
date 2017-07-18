@@ -22,8 +22,8 @@ public class DialogCircularProj {
 				.inflate(R.layout.dialog_new_circular_proj, null);
 		builder.setView(linearLayout);
 		final EditText nameI = (EditText)linearLayout.findViewById(R.id.dlgncpinputname);
-		final EditText beginDirI = (EditText)linearLayout.findViewById(R.id.dlgncpinputbegindir);
-		final EditText endDirI = (EditText)linearLayout.findViewById(R.id.dlgncpinputenddir);
+		final EditText midDirI = (EditText)linearLayout.findViewById(R.id.dlgncpinputmiddir);
+		final EditText rangeDirI = (EditText)linearLayout.findViewById(R.id.dlgncpinputdirrange);
 		final EditText countI = (EditText)linearLayout.findViewById(R.id.dlgncpinputcount);
 		final EditText posxI = (EditText)linearLayout.findViewById(R.id.dlgncpinputposx);
 		final EditText posyI = (EditText)linearLayout.findViewById(R.id.dlgncpinputposy);
@@ -36,8 +36,8 @@ public class DialogCircularProj {
 				if (!CircularProj.Items.containsKey(nname))
 				{
 					nameI.setText(nname);
-					beginDirI.setText("0");
-					endDirI.setText("360");
+					midDirI.setText("180");
+					rangeDirI.setText("180");
 					countI.setText("10");
 					posxI.setText("270");
 					posyI.setText("337.5");
@@ -53,8 +53,8 @@ public class DialogCircularProj {
 			CircularProj proj = CircularProj.Items.get(name);
 			posxI.setText(String.valueOf(proj.Position.x));
 			posyI.setText(String.valueOf(proj.Position.y));
-			beginDirI.setText(String.valueOf(proj.BeginDir));
-			endDirI.setText(String.valueOf(proj.EndDir));
+			midDirI.setText(String.valueOf(proj.MidDir));
+			rangeDirI.setText(String.valueOf(proj.DirRange));
 			countI.setText(String.valueOf(proj.CountProjs));
 			cycleI.setText(String.valueOf(proj.Cycle));
 		}
@@ -67,8 +67,8 @@ public class DialogCircularProj {
 							new Vector2(
 									Float.parseFloat(posxI.getText().toString()),
 									Float.parseFloat(posyI.getText().toString())),
-							Float.parseFloat(beginDirI.getText().toString()),
-							Float.parseFloat(endDirI.getText().toString()),
+							Float.parseFloat(midDirI.getText().toString()),
+							Float.parseFloat(rangeDirI.getText().toString()),
 							Integer.parseInt(countI.getText().toString()),
 							Integer.parseInt(cycleI.getText().toString()),
 							nameI.getText().toString()
@@ -80,8 +80,8 @@ public class DialogCircularProj {
 							new Vector2(
 									Float.parseFloat(posxI.getText().toString()),
 									Float.parseFloat(posyI.getText().toString())),
-							Float.parseFloat(beginDirI.getText().toString()),
-							Float.parseFloat(endDirI.getText().toString()),
+							Float.parseFloat(midDirI.getText().toString()),
+							Float.parseFloat(rangeDirI.getText().toString()),
 							Integer.parseInt(countI.getText().toString()),
 							Integer.parseInt(cycleI.getText().toString()),
 							nameI.getText().toString()
@@ -98,8 +98,8 @@ public class DialogCircularProj {
 							new Vector2(
 									Float.parseFloat(posxI.getText().toString()),
 									Float.parseFloat(posyI.getText().toString())),
-							Float.parseFloat(beginDirI.getText().toString()),
-							Float.parseFloat(endDirI.getText().toString()),
+							Float.parseFloat(midDirI.getText().toString()),
+							Float.parseFloat(rangeDirI.getText().toString()),
 							Integer.parseInt(countI.getText().toString()),
 							Integer.parseInt(cycleI.getText().toString()),
 							nameI.getText().toString()

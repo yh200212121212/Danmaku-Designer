@@ -13,23 +13,23 @@ public class CircularGroup {
 	public ArrayList<Projectile> Projs;
 	public CircularProj MainComponent;
 	public int ExistTime;
-	float tmpBeginDir;
-	float tmpEndDir;
+	public int Active;
 	public CircularGroup(CircularProj component)
 	{
-		MainComponent = component;
+		Active = 1;
+		MainComponent = component.clone();
 		ExistTime = 0;
 		Projs = new ArrayList<Projectile>(100);
 		tmp = new Vector2(MainComponent.Velocity, 0);
-		tmpBeginDir = MainComponent.BeginDir;
-		tmpEndDir = MainComponent.EndDir;
 	}
 	Vector2 tmp;
 	public void Update()
 	{
 		ExistTime++;
-		if (ExistTime > MainComponent.EndTime || ExistTime < MainComponent.BeginTime)
+		if (ExistTime > MainComponent.EndTime || ExistTime < MainComponent.BeginTime || Active == 0)
 			return;
+		float tmpBeginDir = MainComponent.MidDir - MainComponent.DirRange;
+		float tmpEndDir = MainComponent.MidDir + MainComponent.DirRange;
 		if (ExistTime % MainComponent.Cycle == 1)
 		{
 			for (float dir = tmpBeginDir;
@@ -44,8 +44,7 @@ public class CircularGroup {
 				Projs.add(proj);
 			}
 		}
-		tmpBeginDir += MainComponent.RotateSpeed / 90f;
-		tmpEndDir += MainComponent.RotateSpeed / 90f;
+		MainComponent.MidDir += MainComponent.RotateSpeed / 90f;
 		for (int i=0; i<Projs.size(); i++)
 		{
 			Projectile proj = Projs.get(i);
