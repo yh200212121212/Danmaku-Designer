@@ -1,6 +1,6 @@
 package cn.BHR.danmakudesigner.dEntity;
 
-import java.util.Hashtable;
+import java.util.*;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import cn.BHR.danmakudesigner.*;
+import cn.BHR.danmakudesigner.dataStructures.Task;
 import cn.BHR.danmakudesigner.dialogs.DialogCircularProj;
 
 public class CircularProj {
@@ -19,12 +20,14 @@ public class CircularProj {
 	public float DirRange;
 	public int CountProjs;
 	public int Cycle;
-	public Button DesignButton;
+	public transient Button DesignButton;
 	
 	public int BeginTime = 0;
 	public int EndTime = 999999;
 	public float Velocity = 3f;
 	public float RotateSpeed = 0f;
+	
+	public ArrayList<Task> Tasks = new ArrayList<Task>();
 	
 	public static void Create(Vector2 position, float midDir, float rangeDir, int count, int cycle, final String name)
 	{
@@ -98,6 +101,7 @@ public class CircularProj {
 		n.Position = this.Position.cpy();
 		n.RotateSpeed = this.RotateSpeed;
 		n.Velocity = this.Velocity;
+		n.Tasks.addAll(this.Tasks);
 		return n;
 	}
 }

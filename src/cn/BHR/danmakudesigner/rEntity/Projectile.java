@@ -10,6 +10,7 @@ public class Projectile {
 	public Vector2 Position = new Vector2();
 	public Image Drawer = new Image(Main.ResourceMgr.Drawables.get("Proj0"));
 	public float Direction;
+	public int BatchID = 0;
 	Rectangle _hitbox = new Rectangle();
 	public Rectangle GetHitBox()
 	{

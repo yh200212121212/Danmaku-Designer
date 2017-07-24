@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.*;
 
 import cn.BHR.danmakudesigner.dEntity.CircularProj;
 import cn.BHR.danmakudesigner.ui.NewCircularProjButton;
+import cn.BHR.danmakudesigner.ui.OpenSaveButtons;
 import cn.BHR.danmakudesigner.ui.RunButton;
 
 public class DesignScreen extends ScreenAdapter {
@@ -19,6 +20,13 @@ public class DesignScreen extends ScreenAdapter {
 	public static Group MainGroup;
 	@Override
 	public void show() {
+		MainActivity.Instance.handler.post(new Runnable() {
+			@Override
+			public void run() {
+				MainActivity.Instance.setTitle("Design");
+			}
+		});
+		
 		UIStage = new Stage(new FitViewport(540, 540f / Main.Width * Main.Height), Main.Sbatch);
 		STAGEMAINRECT = new Rectangle(0, UIStage.getHeight() - 675, 540, 675);
 		DrawHelper.InitMagicPixel();
@@ -40,6 +48,8 @@ public class DesignScreen extends ScreenAdapter {
 		bottomBar.addActor(bottomBarActor);
 		bottomBar.addActor(NewCircularProjButton.Create());
 		bottomBar.addActor(RunButton.Create());
+		bottomBar.addActor(OpenSaveButtons.CreateOpen());
+		bottomBar.addActor(OpenSaveButtons.CreateSave());
 		
 		UIStage.addActor(MainGroup);
 		UIStage.addActor(bottomBar);

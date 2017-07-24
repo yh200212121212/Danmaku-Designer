@@ -26,6 +26,13 @@ public class RunScreen extends ScreenAdapter {
 	static boolean ready = false;
 	@Override
 	public void show() {
+		MainActivity.Instance.handler.post(new Runnable() {
+			@Override
+			public void run() {
+				MainActivity.Instance.setTitle("Run");
+			}
+		});
+		
 		ready = false;
 		UIStage = new Stage(new FitViewport(540, 540f / Main.Width * Main.Height), Main.Sbatch);
 		STAGEMAINRECT = new Rectangle(0, UIStage.getHeight() - 675, 540, 675);

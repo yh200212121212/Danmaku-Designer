@@ -18,10 +18,30 @@
 	<string name="dlg_cpm_time_begin">开始时间(tick):</string>
 	<string name="dlg_cpm_time_end">结束时间(tick):</string>
 	<string name="dlg_cpm_rotate">发射器旋转:(度每秒)</string>
+	<string name="dlg_cpm_task_title">事件系统:</string>
+	
+	<string name="delete">删除</string>
+	<string name="add">增加</string>
 	
 	<string-array name="spin_route">
 		<item>曲线</item>
 		<item>直线</item>
 	</string-array>
+	
+	<string-array name="task_type">
+	    <item>激活状态</item>
+	    <item>自转速度</item>
+	    <item>子弹速度</item>
+	    <item>发射间隔</item>
+	    <item>单批数量</item>
+	    <item>范围大小</item>
+	    <item>范围中值</item>
+	    <item>子弹变向</item>
+	</string-array>
+	
+	<string name="task_hint_timeout">首次时间</string>
+	<string name="task_hint_interval">间隔(-1不反复)</string>
+	<string name="task_hint_target">目标值</string>
+	<string name="task_hint_time">变化时间</string>
 
 </resources>

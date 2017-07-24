@@ -14,23 +14,28 @@ public class CircularGroup {
 	public CircularProj MainComponent;
 	public int ExistTime;
 	public int Active;
+	protected TaskSystem taskSystem;
+	protected int batchID;
 	public CircularGroup(CircularProj component)
 	{
 		Active = 1;
 		MainComponent = component.clone();
 		ExistTime = 0;
+		batchID = 0;
 		Projs = new ArrayList<Projectile>(100);
 		tmp = new Vector2(MainComponent.Velocity, 0);
+		taskSystem = new TaskSystem(this, MainComponent.Tasks);
 	}
 	Vector2 tmp;
 	public void Update()
 	{
 		ExistTime++;
-		if (ExistTime > MainComponent.EndTime || ExistTime < MainComponent.BeginTime || Active == 0)
+		if (ExistTime > MainComponent.EndTime || ExistTime < MainComponent.BeginTime)
 			return;
 		float tmpBeginDir = MainComponent.MidDir - MainComponent.DirRange;
 		float tmpEndDir = MainComponent.MidDir + MainComponent.DirRange;
-		if (ExistTime % MainComponent.Cycle == 1)
+		if ((MainComponent.Cycle <= 1 || (ExistTime - MainComponent.BeginTime) % MainComponent.Cycle == 1)
+				&& Active != 0)
 		{
 			for (float dir = tmpBeginDir;
 					dir <= tmpEndDir;
@@ -40,11 +45,16 @@ public class CircularGroup {
 				proj.Direction = dir;
 				proj.Position.set(MainComponent.AbsPos);
 				proj.Drawer.setSize(24, 24);
+				proj.BatchID = batchID;
 				RunScreen.MainGroup.addActor(proj.Drawer);
 				Projs.add(proj);
 			}
+			batchID++;
 		}
 		MainComponent.MidDir += MainComponent.RotateSpeed / 90f;
+		
+		taskSystem.Update();
+		
 		for (int i=0; i<Projs.size(); i++)
 		{
 			Projectile proj = Projs.get(i);

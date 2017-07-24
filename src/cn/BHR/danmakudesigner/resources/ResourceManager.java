@@ -28,6 +28,10 @@ public class ResourceManager {
 				"ui/buttons/New_Circular_Proj_Down.png",
 				"ui/buttons/Run.png",
 				"ui/buttons/Run_Down.png",
+				"ui/buttons/Save_Down.png",
+				"ui/buttons/Save.png",
+				"ui/buttons/Open_Down.png",
+				"ui/buttons/Open.png",
 				"proj/0.png"
 		};
 		String[] names = new String[] {
@@ -35,6 +39,10 @@ public class ResourceManager {
 				"New_Circular_Proj_Down",
 				"Run",
 				"Run_Down",
+				"Save_Down",
+				"Save",
+				"Open_Down",
+				"Open",
 				"Proj0"
 		};
 		for (int i=0; i<paths.length; i++)

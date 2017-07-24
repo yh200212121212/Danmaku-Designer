@@ -15,8 +15,8 @@ public class RandomVal {
 	{
 		RandomVal val = new RandomVal();
 		String[] spl = str.split(",");
-		val.MidValue = Float.parseFloat(spl[0]);
-		val.RandomRange = Float.parseFloat(spl[1]);
+		val.MidValue = spl.length > 0 ? Float.parseFloat(spl[0]) : 0;
+		val.RandomRange = spl.length > 1 ? Float.parseFloat(spl[1]) : 0;
 		return val;
 	}
 }

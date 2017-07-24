@@ -3,12 +3,12 @@ package cn.BHR.danmakudesigner.dialogs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-import cn.BHR.danmakudesigner.MainActivity;
-import cn.BHR.danmakudesigner.R;
+import android.view.*;
+import android.widget.*;
+import cn.BHR.danmakudesigner.*;
 import cn.BHR.danmakudesigner.dEntity.CircularProj;
+import cn.BHR.danmakudesigner.dataStructures.Task;
+import cn.BHR.danmakudesigner.ui.TaskListAdapter;
 
 @SuppressLint("InflateParams")
 public class DialogCircularMore {
@@ -24,7 +24,20 @@ public class DialogCircularMore {
 		final EditText endI = (EditText)linearLayout.findViewById(R.id.dlgcpmtimeend);
 		final EditText velocI = (EditText)linearLayout.findViewById(R.id.dlgcpmveloc);
 		final EditText rotateI = (EditText)linearLayout.findViewById(R.id.dlgcpmrotate);
-		CircularProj proj = CircularProj.Items.get(name);
+		final ListView taskList = (ListView)linearLayout.findViewById(R.id.task_list);
+
+		final CircularProj proj = CircularProj.Items.get(name);
+		
+		taskList.setAdapter(new TaskListAdapter(MainActivity.Instance, proj.Tasks));
+		
+		((ImageButton)linearLayout.findViewById(R.id.task_btn_add)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				proj.Tasks.add(new Task());
+				((TaskListAdapter)taskList.getAdapter()).notifyDataSetChanged();
+			}
+		});
+		
 		beginI.setText(String.valueOf(proj.BeginTime));
 		endI.setText(String.valueOf(proj.EndTime));
 		velocI.setText(String.valueOf(proj.Velocity));
