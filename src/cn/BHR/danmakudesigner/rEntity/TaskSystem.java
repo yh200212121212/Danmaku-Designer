@@ -1,6 +1,9 @@
 package cn.BHR.danmakudesigner.rEntity;
 
+import java.util.Dictionary;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.math.Interpolation;
 
@@ -21,7 +24,7 @@ public class TaskSystem {
 		Owner = owner;
 		Tasks = tasks.toArray(new Task[tasks.size()]);
 		taskActivated = new boolean[Tasks.length];
-		ai = new float[Tasks.length][4];
+		ai = new float[Tasks.length][5];
 		for (int i=0; i<taskActivated.length; i++)
 			taskActivated[i] = false;
 	}
@@ -44,11 +47,15 @@ public class TaskSystem {
 					break;
 				case SELFROTATION:
 					ai[i][1] = Owner.MainComponent.RotateSpeed;
-					ai[i][2] = Float.parseFloat(task.Target);
+					ai[i][2] = RandomVal.Parse(task.Target).GetRand();
 					break;
 				case BULLETSPEED:
+					ai[i][4] = task.Target.startsWith("%") ? 1f : -1f;
 					ai[i][1] = Owner.MainComponent.Velocity;
-					ai[i][2] = RandomVal.Parse(task.Target).GetRand();
+					ai[i][2] = RandomVal.Parse(task.Target.replace("%", "")).GetRand();
+					ai[i][3]++;
+					if (ai[i][4] < 0)
+						task.Interval = Owner.MainComponent.Cycle;
 					break;
 				case CYCLE:
 					ai[i][1] = Owner.MainComponent.Cycle;
@@ -92,12 +99,26 @@ public class TaskSystem {
 				}
 				break;
 			case BULLETSPEED:
-				Owner.MainComponent.Velocity = 
-						Interpolation.linear.apply(ai[i][1], ai[i][2], ai[i][0]/Tasks[i].Duration);
 				ai[i][0]++;
+				if (ai[i][4] > 0)
+				{
+					for (int j=0; j<Owner.Projs.size(); j++) {
+						Projectile proj = Owner.Projs.valueAt(j);
+						Owner.MainComponent.Velocity = 
+								Interpolation.linear.apply(ai[i][1], ai[i][2], ai[i][0]/Tasks[i].Duration);
+						proj.Velocity = Owner.MainComponent.Velocity;
+					}
+				}
+				else
+				{
+					for (int j=0; j<Owner.Projs.size(); j++) {
+						Projectile proj = Owner.Projs.valueAt(j);
+						if (proj.BatchID == (int)(ai[i][3] + 0.5f))
+							proj.Velocity = Interpolation.linear.apply(ai[i][1], ai[i][2], ai[i][0]/Tasks[i].Duration);
+					}
+				}
 				if (ai[i][0] >= Tasks[i].Duration)
 				{
-					Owner.MainComponent.Velocity = ai[i][2];
 					taskActivated[i] = false;
 				}
 				break;
@@ -140,13 +161,15 @@ public class TaskSystem {
 			case PROJDIR:
 				if (ai[i][1] > 0)
 				{
-					for (Projectile proj : Owner.Projs) {
+					for (int j=0; j<Owner.Projs.size(); j++) {
+						Projectile proj = Owner.Projs.valueAt(j);
 						proj.Direction += ai[i][2] / Tasks[i].Duration;
 					}
 				}
 				else
 				{
-					for (Projectile proj : Owner.Projs) {
+					for (int j=0; j<Owner.Projs.size(); j++) {
+						Projectile proj = Owner.Projs.valueAt(j);
 						if (proj.BatchID == (int)(ai[i][3] + 0.5f))
 							proj.Direction += ai[i][2] / Tasks[i].Duration;
 					}

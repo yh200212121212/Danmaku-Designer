@@ -5,24 +5,27 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
+import android.util.SparseArray;
 import cn.BHR.danmakudesigner.*;
 import cn.BHR.danmakudesigner.dEntity.CircularProj;
 
 public class CircularGroup {
 	public static ArrayList<CircularGroup> Items = new ArrayList<CircularGroup>();
-	public ArrayList<Projectile> Projs;
+	public SparseArray<Projectile> Projs;
 	public CircularProj MainComponent;
 	public int ExistTime;
 	public int Active;
 	protected TaskSystem taskSystem;
 	protected int batchID;
+	protected int projID;
 	public CircularGroup(CircularProj component)
 	{
 		Active = 1;
 		MainComponent = component.clone();
 		ExistTime = 0;
-		batchID = 0;
-		Projs = new ArrayList<Projectile>(100);
+		batchID = 1;
+		projID = 1;
+		Projs = new SparseArray<Projectile>(100);
 		tmp = new Vector2(MainComponent.Velocity, 0);
 		taskSystem = new TaskSystem(this, MainComponent.Tasks);
 	}
@@ -46,24 +49,27 @@ public class CircularGroup {
 				proj.Position.set(MainComponent.AbsPos);
 				proj.Drawer.setSize(24, 24);
 				proj.BatchID = batchID;
+				proj.Velocity = MainComponent.Velocity;
 				RunScreen.MainGroup.addActor(proj.Drawer);
-				Projs.add(proj);
+				Projs.append(projID, proj);
+				projID++;
+				if (MainComponent.DirRange < 1e-3f)
+					break;
 			}
 			batchID++;
 		}
 		MainComponent.MidDir += MainComponent.RotateSpeed / 90f;
-		tmp.set(MainComponent.Velocity, 0);
 		
 		taskSystem.Update();
 		
 		for (int i=0; i<Projs.size(); i++)
 		{
-			Projectile proj = Projs.get(i);
-			proj.Position.add(tmp.setAngle(proj.Direction));
+			Projectile proj = Projs.valueAt(i);
+			proj.Position.add(tmp.set(proj.Velocity, 0).setAngle(proj.Direction));
 			proj.Drawer.setPosition(proj.Position.x, proj.Position.y, Align.center);
 			if (!proj.GetHitBox().overlaps(RunScreen.STAGEMAINRECT))
 			{
-				Projs.remove(i);
+				Projs.removeAt(i);
 				RunScreen.GlobalProjs.free(proj);
 				i--;
 			}

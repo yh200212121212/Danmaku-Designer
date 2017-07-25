@@ -66,9 +66,10 @@ public class RunScreen extends ScreenAdapter {
 	}
 	@Override
 	public void hide() {
+		ready = false;
 		for (CircularGroup group : CircularGroup.Items)
-			for (Projectile proj : group.Projs)
-				GlobalProjs.free(proj);
+			for (int i=0; i<group.Projs.size(); i++)
+				GlobalProjs.free(group.Projs.valueAt(i));
 		CircularGroup.Items.clear();
 		super.hide();
 	}
