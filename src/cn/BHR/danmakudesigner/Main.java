@@ -19,6 +19,7 @@ public class Main extends Game {
 	public static ScreenMode CurrentScreen = ScreenMode.Design;
 	public static SpriteBatch Sbatch;
 	public static Timer updateTimer;
+	public static String ExtraLoad = null;
 	@Override
 	public void create() {
 		Width = Gdx.graphics.getWidth();
@@ -66,6 +67,9 @@ public class Main extends Game {
 		}, 0, 11);
 		
 		Instance = this;
+		
+		if (ExtraLoad != null)
+			DIO.Load(ExtraLoad);
 	}
 	
 	@Override

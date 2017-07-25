@@ -52,6 +52,7 @@ public class CircularGroup {
 			batchID++;
 		}
 		MainComponent.MidDir += MainComponent.RotateSpeed / 90f;
+		tmp.set(MainComponent.Velocity, 0);
 		
 		taskSystem.Update();
 		

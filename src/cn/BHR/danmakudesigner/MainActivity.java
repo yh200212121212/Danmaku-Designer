@@ -30,6 +30,11 @@ public class MainActivity extends AndroidApplication
         	maindir.mkdirs();
         MainDir = maindir.getAbsolutePath() + "/";
         
+        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+        View view = initializeForView(new Main(), cfg);
+        setTitle("Design");
+        setContentView(view);
+        
         try {
 	        Intent intent=getIntent();
 	        Uri uri=(Uri)intent.getData();
@@ -41,7 +46,7 @@ public class MainActivity extends AndroidApplication
 				stream.read(bytes);
 				stream.close();
 				String data = new String(bytes);
-				DIO.Load(data);
+				Main.ExtraLoad = data;
 			} catch (Exception e) {
 				DialogError.Show(e.getLocalizedMessage());
 			}
@@ -49,10 +54,5 @@ public class MainActivity extends AndroidApplication
         catch (Exception e) {
         	
 		}
-        
-        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        View view = initializeForView(new Main(), cfg);
-        setTitle("Design");
-        setContentView(view);
     }
 }
